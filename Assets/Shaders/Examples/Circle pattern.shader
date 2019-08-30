@@ -60,12 +60,13 @@ fixed map( in fixed2 x, fixed t )
 
 fixed shapes( in fixed2 uv, in fixed r, in fixed e )
 {
-	fixed p = pow( 32.0, r - 0.5 );
+	fixed p = 100;
 	fixed l = pow( pow(abs(uv.x),p) + pow(abs(uv.y),p), 1.0/p );
 	fixed d = l - pow(r,0.6) - e*0.2 + 0.05;
-	fixed fw = fwidth( d )*0.5;
+	fixed fw = 0.25;
 	fw *= 1.0 + 10.0*e;
-	return (r)*smoothstep( fw, -fw, d ) * (1.0-0.2*e)*(0.4 + 0.6*smoothstep( -fw, fw, abs(l-r*0.8+0.05)-0.1 ));
+	return smoothstep(fw, -fw, d ) *smoothstep(fw+1, -fw-1, d);
+	//return (r)*smoothstep( fw, -fw, d ) * (1.0-0.2*e)*(0.4 + 0.6*smoothstep( -fw, fw, abs(l-r*0.8+0.05)-0.1 ));
 }
 
 
@@ -86,17 +87,17 @@ fixed4 frag(v2f i) : SV_Target{
     // grey	
     pq = floor( uv*NUM ) / NUM;
 	st = frac( uv*NUM )*2.0 - 1.0;
-	coo = (fixed3(0.5,0.7,0.7) + 0.3*sin(10.0*pq.x)*sin(13.0*pq.y))*0.6;
+	coo = 256;
 	col += 1.0*coo*shapes( st, map(pq, time), 0.0 );
-	col += 0.6*coo*shapes( st, map(pq, time), 1.0 );
+	//col += 0.6*coo*shapes( st, map(pq, time), 1.0 );
 
 	// orange
-    pq = floor( uv*NUM+0.5 ) / NUM;
-	st = frac( uv*NUM+0.5 )*2.0 - 1.0;
-    coo = (fixed3(1.0,0.5,0.3) + 0.3*sin(10.0*pq.y)*cos(11.0*pq.x))*1.0;
-	col += 1.0*coo*shapes( st, 1.0-map(pq, time), 0.0 );
-	col += 0.4*coo*shapes( st, 1.0-map(pq, time), 1.0 );
-
+  //  pq = floor( uv*NUM+0.5 ) / NUM;
+	//st = frac( uv*NUM+0.5 )*2.0 - 1.0;
+    //coo = (fixed3(1.0,0.5,0.3) + 0.3*sin(10.0*pq.y)*cos(11.0*pq.x))*1.0;
+	//col += 1.0*coo*shapes( st, 1.0-map(pq, time), 0.0 );
+//	col += 0.4*coo*shapes( st, 1.0-map(pq, time), 1.0 );
+	clip(col);
 	col *= pow( 16.0*qq.x*qq.y*(1.0-qq.x)*(1.0-qq.y), 0.05 );
 	
 	return  fixed4( col, 1.0 );

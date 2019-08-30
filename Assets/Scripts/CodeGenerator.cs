@@ -123,8 +123,9 @@ public class CodeGenerator : MonoBehaviour {
 		BaseReplace( "iChannel1", "_SecondTex");
 		BaseReplace( "iChannel2", "_ThirdTex");
 		BaseReplace( "iChannel3", "_FourthTex");
-		//BaseReplace( "fragCoord", "i.vertex");
-		BaseReplace (@"iResolution.((x|y){1,2})?", "1");
+        BaseReplace("inversesqrt", "rsqrt");
+        //BaseReplace( "fragCoord", "i.vertex");
+        BaseReplace (@"iResolution.((x|y){1,2})?", "1");
 		BaseReplace( @"fragCoord.xy / iResolution.xy", "i.uv");
 		BaseReplace( @"fragCoord(.xy)?", "i.uv");
 		BaseReplace( @"iResolution(\.(x|y){1,2})?", "1");
