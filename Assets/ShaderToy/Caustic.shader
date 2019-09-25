@@ -3,7 +3,17 @@ Shader "ShaderMan/Caustic"
 	{
 
 	Properties{
-	//Properties
+	_Density("Density", Range(0.0,64.0)) = 4.0
+	_Velocity("Velocity", Range(0.0,5.0)) = 0.5
+	MAX_ITER("Iterations", Range(0,32)) = 4
+	TAU("Scale", Range(0,32)) = 6.28318530718
+	_Alpha("Alpha", Range(0.0,1.0)) = 1.0
+	_R("R", Range(0.0,32)) = 0.0
+	_G("G", Range(0.0,32)) = 0.0
+	_B("B", Range(0.0,32)) = 0.0
+
+	//_MainTex("MainTex", 2D) = "white" {}
+
 	}
 
 	SubShader
@@ -13,7 +23,7 @@ Shader "ShaderMan/Caustic"
 	Pass
 	{
 	ZWrite Off
-	Blend SrcAlpha OneMinusSrcAlpha
+		Blend SrcAlpha OneMinusSrcAlpha
 
 	CGPROGRAM
 	#pragma vertex vert
@@ -36,9 +46,15 @@ Shader "ShaderMan/Caustic"
 	};
 
 	//Variables
-
-	#define TAU 6.28318530718
-#define MAX_ITER 5
+	float _Density;
+	float _R;
+	float _G;
+	float _B;
+	float _Alpha;
+	float _Velocity;
+	int MAX_ITER;
+	sampler2D _MainTex;
+	float TAU;
 
 
 
@@ -55,7 +71,7 @@ Shader "ShaderMan/Caustic"
 	fixed4 frag(VertexOutput i2) : SV_Target
 	{
 
-	fixed time = _Time.y * .5 + 23.0;
+	fixed time = _Time.y * _Velocity + 23.0;
 	// uv should be the 0-1 uv of tex2D...
 	fixed2 uv = i2.uv / 1;
 
@@ -76,10 +92,15 @@ Shader "ShaderMan/Caustic"
 
 	c /= float(MAX_ITER);
 	c = 1.17 - pow(c, 1.4);
-	fixed3 colour = fixed3(pow(abs(c), 8.0),1.0,1.0);
-	colour = clamp(colour + fixed3(0.0, 0.35, 0.5), 0.0, 1.0);
+	fixed3 colour = fixed3(pow(abs(c), 81.0), pow(abs(c),1.0), pow(abs(c), 1.0));
+	colour = clamp(colour + fixed3(0.0, 0.35, 0.5), 0.0, pow(abs(c), 8.0));
 
-	return fixed4(colour, 1.0);
+
+	colour.r = tex2D(_MainTex, colour.r)+_R;
+	colour.g = tex2D(_MainTex, colour.g) + _G ;
+	colour.b = tex2D(_MainTex, colour.b) + _B;
+
+	return fixed4(colour, pow(abs(c), _Density)*_Alpha);
 	}
 	ENDCG
 	}
