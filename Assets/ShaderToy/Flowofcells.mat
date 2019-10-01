@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - FIELD: 20
-    - HEIGHT: 0.7
-    - ITERATION: 2
+    - FIELD: 30.22
+    - HEIGHT: 0.567
+    - ITERATION: 2.78
     m_Colors: []

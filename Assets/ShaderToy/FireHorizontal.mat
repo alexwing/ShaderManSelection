@@ -24,8 +24,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Amplitude: 0.121
-    - _Size: 51.3
+    - _Amplitude: 0.123
+    - _Size: 15
     - _Speed: 2.87
     - _Velocity: -0.399
     m_Colors: []
