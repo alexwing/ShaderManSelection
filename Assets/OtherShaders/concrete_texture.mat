@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Isolines
-  m_Shader: {fileID: 4800000, guid: c3dcd64daa10e9447aaf8eeda9648c3d, type: 3}
+  m_Name: concrete_texture
+  m_Shader: {fileID: 4800000, guid: 0594cc37569bf4c449008ce78b4d4322, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,12 +20,24 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SecondTex:
-        m_Texture: {fileID: 2800000, guid: 0432f91b5d7d39545b36d9cff673e3e9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - A: 1.102
+    - B: 1.133
+    - C: 1.312
+    - D: 0
+    - E: 0.28
+    - F: 1.04
+    - G: 1.5
+    - I: 50
+    - U: 0
+    - V: 0
+    - _Amplitude: 0.123
+    - _Size: 15
+    - _Speed: 2.87
+    - _Velocity: -0.399
+    - _offsetX: 0
+    - _offsetY: 0
     m_Colors: []
