@@ -1,6 +1,6 @@
 
 Shader "ShaderMan/Caustic"
-	{
+{
 
 	Properties{
 		_MainTex("MainTex", 2D) = "white"{}
@@ -13,111 +13,110 @@ Shader "ShaderMan/Caustic"
 	_G("G", Range(0.0,1)) = 0.0
 	_B("B", Range(0.0,1)) = 0.0
 
-	//_MainTex("MainTex", 2D) = "white" {}
+		//_MainTex("MainTex", 2D) = "white" {}
 
 	}
 
 	SubShader
 	{
-	Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
+		Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
 
-	Pass
-	{
-	ZWrite Off
-		Blend SrcAlpha OneMinusSrcAlpha
+		Pass
+		{
+			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#include "UnityCG.cginc"
 
-	CGPROGRAM
-	#pragma vertex vert
-	#pragma fragment frag
-	#include "UnityCG.cginc"
+			uniform sampler2D  _MainTex;
 
-	uniform sampler2D  _MainTex;
-
-	struct VertexInput {
-    fixed4 vertex : POSITION;
-	fixed2 uv:TEXCOORD0;
-    fixed4 tangent : TANGENT;
-    fixed3 normal : NORMAL;
-	//VertexInput
-	};
+			struct VertexInput {
+				fixed4 vertex : POSITION;
+				fixed2 uv : TEXCOORD0;
+				fixed4 tangent : TANGENT;
+				fixed3 normal : NORMAL;
+				//VertexInput
+			};
 
 
-	struct VertexOutput {
-	fixed4 pos : SV_POSITION;
-	fixed2 uv:TEXCOORD0;
-	//VertexOutput
-	};
+			struct VertexOutput {
+				fixed4 pos : SV_POSITION;
+				fixed2 uv : TEXCOORD0;
+				//VertexOutput
+			};
 
-	//Variables
-	float _Density;
-	float _R;
-	float _G;
-	float _B;
-	float _Alpha;
-	float _Velocity;
-	
-	int MAX_ITER;
-	
-	float TAU;
+			//Variables
+			float _Density;
+			float _R;
+			float _G;
+			float _B;
+			float _Alpha;
+			float _Velocity;
 
+			int MAX_ITER;
+
+			float TAU;
 
 
 
 
-	VertexOutput vert (VertexInput v)
-	{
-	VertexOutput o;
-	o.pos = UnityObjectToClipPos (v.vertex);
-	o.uv = v.uv;
-	//VertexFactory
-	return o;
+
+			VertexOutput vert(VertexInput v)
+			{
+				VertexOutput o;
+				o.pos = UnityObjectToClipPos(v.vertex);
+				o.uv = v.uv;
+				//VertexFactory
+				return o;
+			}
+			fixed4 frag(VertexOutput i2) : SV_Target
+			{
+
+				fixed time = _Time.y * _Velocity + 23.0;
+				// uv should be the 0-1 uv of tex2D...
+				fixed2 uv = i2.uv / 1;
+
+
+				fixed2 p = fmod(uv * TAU, TAU) - 250.0;
+
+				fixed2 i = p;
+				fixed c = 1.0;
+				fixed inten = .005;
+
+				for (int n = 0; n < MAX_ITER; n++)
+				{
+					fixed t = time * (1.0 - (3.5 / fixed(n + 1)));
+					i = p + fixed2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
+					c += 1.0 / length(fixed2(p.x / (sin(i.x + t) / inten),p.y / (cos(i.y + t) / inten)));
+
+				}
+
+				c /= float(MAX_ITER);
+				c = 1.17 - pow(c, 1.4);
+				fixed3 colour = fixed3(pow(abs(c), 1.0), pow(abs(c),1.0), pow(abs(c), 1.0));
+				//fixed3 colour = fixed3(c, c, c);
+				colour = clamp(colour + fixed3(0.0, 0.35, 0.5), 0.0, pow(abs(c), 8.0));
+
+
+
+				colour.r += _R * c;
+				colour.g += _G * c;
+				colour.b += _B * c;
+				colour = colour * _Alpha;
+
+				colour.r += _R * _Density;
+				colour.g += _G * _Density;
+				colour.b += _B * _Density;
+
+
+				fixed3 video = fixed3(tex2D(_MainTex, uv).xyz);
+
+				return fixed4(video + colour, 1);
+			}
+		ENDCG
+		}
 	}
-	fixed4 frag(VertexOutput i2) : SV_Target
-	{
-
-	fixed time = _Time.y * _Velocity + 23.0;
-	// uv should be the 0-1 uv of tex2D...
-	fixed2 uv = i2.uv / 1;
-
-
-	fixed2 p = fmod(uv*TAU, TAU) - 250.0;
-
-	fixed2 i = p;
-	fixed c = 1.0;
-	fixed inten = .005;
-
-	for (int n = 0; n < MAX_ITER; n++)
-	{
-		fixed t = time * (1.0 - (3.5 / fixed(n + 1)));
-		i = p + fixed2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
-		c += 1.0 / length(fixed2(p.x / (sin(i.x + t) / inten),p.y / (cos(i.y + t) / inten)));
-
-	}
-
-	c /= float(MAX_ITER);
-	c = 1.17 - pow(c, 1.4);
-	fixed3 colour = fixed3(pow(abs(c), 1.0), pow(abs(c),1.0), pow(abs(c), 1.0));
-	//fixed3 colour = fixed3(c, c, c);
-	colour = clamp(colour + fixed3(0.0, 0.35, 0.5), 0.0, pow(abs(c), 8.0));
-
-
-
-	colour.r += _R * c;
-	colour.g += _G * c;
-	colour.b += _B * c;
-	colour =colour*_Alpha;
-
-	colour.r += _R * _Density;
-	colour.g += _G * _Density;
-	colour.b += _B * _Density;
-
-
-	fixed3 video = fixed3(tex2D(_MainTex, uv).xyz);
-
-	return fixed4(video+ colour, 1);
-	}
-	ENDCG
-	}
-  }
 }
 
