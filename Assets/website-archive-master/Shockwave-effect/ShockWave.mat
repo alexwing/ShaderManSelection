@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShockWave
+  m_Shader: {fileID: 4800000, guid: f38155e1fcc577f4da5b8cb6ad64f314, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _GradientMap:
+        m_Texture: {fileID: 2800000, guid: 65950cd8891d3e74fa54de617f48d2b8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 65950cd8891d3e74fa54de617f48d2b8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTexture:
+        m_Texture: {fileID: 2800000, guid: 33fdea46021f6c947a90054790a90501, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindTexture:
+        m_Texture: {fileID: 2800000, guid: 33fdea46021f6c947a90054790a90501, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _B: 132.4
+    - _CenterX: 0.47667983
+    - _CenterY: 0.7628019
+    - _ColorMask: 15
+    - _DisplacementAmount: 0
+    - _DissolveAmount: 0.59
+    - _EmissionThreshold: 0.1
+    - _ExtrusionFactor: 0.99
+    - _G: 128.3
+    - _GrassBlades: 1
+    - _GrassHeight: 0
+    - _GrassTrampleOffsetAmount: 0.252
+    - _GrassWidth: 0.655
+    - _Hardness: 1
+    - _Invert: 0.111
+    - _IsLit: 0
+    - _MaxCamDist: 100
+    - _MaxCameraDistance: 10
+    - _MinimunGrassBlades: 1
+    - _NoiseSize: 1
+    - _PositionRandomness: 0
+    - _R: 254.6
+    - _Radius: 2
+    - _RimPower: 1
+    - _SDFThreshold: 0.379
+    - _SizeX: 1
+    - _SizeY: 1
+    - _Smoothness: 0.512
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _TessellationUniform: 32.8
+    - _Thickness: 0.5
+    - _UseUIAlphaClip: 0
+    - _WindSpeed: 0
+    - _WindStrength: 0
+    - _scale: 0.526
+    - _scale2: 80.4
+    - f: 1
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Direction: {r: -0.47, g: 1, b: 0, a: 0}
+    - _Emission: {r: 1, g: 1, b: 1, a: 1}
+    - _GrassTrample: {r: 0, g: 0, b: 0, a: 0}
+    - _SkyColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TranslucentColor: {r: 1, g: 1, b: 1, a: 1}
+    - _WindColor: {r: 1, g: 1, b: 1, a: 1}

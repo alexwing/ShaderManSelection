@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SnowShader
+  m_Shader: {fileID: 4800000, guid: 5ebcc8feed5b8334c90d0089c8bcd273, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainNormal:
+        m_Texture: {fileID: 2800000, guid: 702d135f1783a4d89a0f085905296b3f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 21ecfbc5f68579247b9f46bc91aae522, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowNormal:
+        m_Texture: {fileID: 2800000, guid: 21ecfbc5f68579247b9f46bc91aae522, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SnowTexture:
+        m_Texture: {fileID: 2800000, guid: ea9f026cd3be32f49896a261535620b1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - PixelSnap: 0
+    - _B: 132.4
+    - _G: 128.3
+    - _Glossiness: 0.193
+    - _MaxCamDist: 100
+    - _Metallic: 0
+    - _R: 254.6
+    - _SnowGlossiness: 0.494
+    - _SnowLevel: 0.282
+    - _SnowMetallic: 0.146
+    - _scale: 0.526
+    - _scale2: 80.4
+    - f: 1
+    m_Colors:
+    - _Color: {r: 0.6603774, g: 0.37970206, b: 0.19624422, a: 1}
+    - _SkyColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SnowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SnowDirection: {r: 0, g: 1, b: 0, a: 1}
