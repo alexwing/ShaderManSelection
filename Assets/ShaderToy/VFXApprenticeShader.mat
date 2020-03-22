@@ -37,7 +37,7 @@ Material:
     - _B: 0.779
     - _BurnSize: 0
     - _Contrast: 1
-    - _Cutoff: 0.431
+    - _Cutoff: 0.574
     - _CutoutThresh: 0.733
     - _CutoutThresh2: 0
     - _DisplacementAmount: 0
