@@ -59,7 +59,7 @@ Material:
     - _NoiseSize: 1
     - _PositionRandomness: 0
     - _R: 254.6
-    - _Radius: 2
+    - _Radius: -0.2
     - _RimPower: 1
     - _SDFThreshold: 0.379
     - _SizeX: 1
