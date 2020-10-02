@@ -9,6 +9,7 @@ Shader"Custom/GlitchMaterial"{
 	_Glitch("Glitch", Range(0.0,10.0)) = 2
 	_Shake("Shake", Range(0.0,10.0)) = 2
 	_Vignette("Vignette", Range(-3,3)) = 1
+	_Alpha("Alpha", Range(0.0,1.0)) = 1.0
 
 
 	}
@@ -49,7 +50,7 @@ Shader"Custom/GlitchMaterial"{
 			v2f vert(appdata v)
 			{
 				v2f o;
-				 o.vertex = UnityObjectToClipPos(v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv , _GrabTexture);
 				o.grabPassUV = ComputeGrabScreenPos(o.vertex);
 
@@ -65,6 +66,7 @@ Shader"Custom/GlitchMaterial"{
 			float _Shake;
 			float _Vignette;
 			float _HorizontalLittleLines;
+			float _Alpha;
 		
 
 			fixed noise(fixed2 p)
@@ -102,7 +104,6 @@ Shader"Custom/GlitchMaterial"{
 				fixed vShift = 0.4 * onOff(2.,3.,.9) * (sin(_Time.y) * sin(_Time.y * 20.) +
 													 (0.5 + 0.1 * sin(_Time.y * 200.) * cos(_Time.y))) * _Glitch;
 				look.y = fmod(look.y + vShift, 1.);
-			//	return  tex2D(_GrabTexture, look);
 				return  look;
 			}
 
@@ -116,7 +117,8 @@ Shader"Custom/GlitchMaterial"{
 
 			fixed4 frag(v2f i) : SV_Target{
 			{
-				fixed4 video = tex2Dproj(_GrabTexture, i.grabPassUV);
+				fixed4 video  = tex2Dproj(_GrabTexture, i.grabPassUV);
+				fixed4 video2  = video;
 				fixed2 uv = i.uv;
 				uv = screenDistort(uv);
 				video = getVideo(video);
@@ -129,8 +131,8 @@ Shader"Custom/GlitchMaterial"{
 				video += noise(uv * 2.) / 2.;
 				video = mul(video ,vignette);
 				video = mul(video ,((12. + fmod(uv.y * _HorizontalLittleLines + _Time.y,1.)) / 13.));
-				
-				
+				video = fixed4(video.rgb,  _Alpha);
+				video = (video * _Alpha) + video2 * (1-_Alpha);
 				return  video;
 			}
 			}ENDCG
